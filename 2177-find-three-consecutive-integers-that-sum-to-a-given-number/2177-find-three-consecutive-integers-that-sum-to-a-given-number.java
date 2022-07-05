@@ -1,0 +1,16 @@
+class Solution {
+    public long[] sumOfThree(long num) {
+      long ans[]=new long[3];
+        if(num%3==0)
+        {
+            ans[1]=num/3;
+            ans[0]=ans[1]-1;
+            ans[2]=ans[1]+1;
+        }
+        else
+        {
+            return new long[0];
+        }
+        return ans;
+    }
+}
