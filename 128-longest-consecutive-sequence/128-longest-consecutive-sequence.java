@@ -7,18 +7,22 @@ class Solution {
             h.add(nums[i]);
            for(int i=0;i<n;i++)
            {
-               
-               int cnt=1;
-               int res=1;
-               if(!h.contains(nums[i]-1))
+              int cnt=1; 
+             int prev=nums[i]-1;
+               int next=nums[i]+1;
+               while(h.contains(prev))
                {
-               while(h.contains(nums[i]+cnt))
+                 cnt++;
+                   h.remove(prev);
+                   prev--;
+               }
+                while(h.contains(next))
                {
-                  res++;
-                   cnt++;
+                 cnt++;
+                    h.remove(next);
+                   next++;
                }
-               }
-               max=Math.max(max,res);
+               max=Math.max(max,cnt);
            }  
          return max;  
     }
