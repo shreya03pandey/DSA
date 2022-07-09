@@ -1,17 +1,18 @@
 class Solution {
-    public int timeRequiredToBuy(int[] tickets, int k) {
-        int res=0;
-       while(tickets[k]!=0)
-       {
-           for(int i=0;i<tickets.length;i++)
-           {
-              if(tickets[i]>0 && tickets[k]!=0)
-              {
-                  res++;
-               tickets[i]--;
-              }
-           }
-       }
+    public int timeRequiredToBuy(int[] tick, int k) {
+       int res=0;
+        for(int i=0;i<tick.length;i++)
+        {
+            if(tick[i]<tick[k])
+                res+=tick[i];
+            else
+            {
+                 res+=tick[k];
+                if(i>k)
+                    res-=1;
+            }
+        }
+        
         return res;
     }
 }
