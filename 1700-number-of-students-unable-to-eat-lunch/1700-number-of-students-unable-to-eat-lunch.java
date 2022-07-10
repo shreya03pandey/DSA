@@ -19,6 +19,6 @@ class Solution {
                 cnt++;
             }
         }
-        return q.size();
+        return cnt;
     }
 }
