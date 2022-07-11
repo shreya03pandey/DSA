@@ -120,28 +120,41 @@ class GFG
     //Function to swap Kth node from beginning and end in a linked list.
     Node swapkthnode(Node head, int num, int K)
     {
-        if(K>num)return head;//node preferred is not valid
-    if(K==num-K+1) return head;//when nodes from both ends r same
-    Node temp1=head,temp2=head;
-    Node prev1=null,prev2=null;
-    for(int i=1;i<K;i++){
-        prev1=temp1;
-        temp1=temp1.next;
-    }
-    for(int i=1;i<num-K+1;i++)
-    {
-        prev2=temp2;
-        temp2=temp2.next;
-    }
-    if(prev1!=null)
-    prev1.next=temp2;
-    if(prev2!=null)
-    prev2.next=temp1;
-    Node temp=temp1.next;
-    temp1.next=temp2.next;
-    temp2.next=temp;
-    if(K==1) head=temp2;
-    if(K==num) head=temp1;
-    return head;
+       if(head==null||K>num||K==num-K+1)
+        return head;
+        // your code here
+        Node curr1=head;
+        Node prev1=null;
+        Node prev2=null;
+        int i=1;
+        while(i<K)
+        {
+            prev1=curr1;
+            curr1=curr1.next;
+            i++;
+        }
+        Node curr2=head;
+         i=1;
+        while( i<num-K+1)
+        {
+            prev2=curr2;
+            curr2=curr2.next;
+            i++;
+        }
+        if(prev1!=null)
+        {
+        prev1.next=curr2;
+        
+        }
+        if(prev2!=null)
+        {
+        prev2.next=curr1;
+        }
+         Node temp=curr1.next;
+         curr1.next=curr2.next;
+         curr2.next=temp;
+           if(K==1) head=curr2;
+           if(K==num) head=curr1;
+         return head;
     }
 }
