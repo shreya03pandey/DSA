@@ -79,91 +79,73 @@ class LinkedList
 {
     //Function to sort the given doubly linked list using Merge Sort.
    
-    
+    static Node sortDoubly(Node head)
+    {
+        // add your code here
+        if(head==null||head.next==null) return head;
+        
+        Node slow = head;
+	Node fast = head;
+	Node prev = null;
+	
+	while (fast!=null && fast.next!=null) {
+	    prev = slow;
+	    slow = slow.next;
+	    fast = fast.next.next;
+	}
+	prev.next = null;
+	slow.prev = null;
+	
+	Node head1 = sortDoubly(head);
+	Node head2 = sortDoubly(slow);
+	return mergeSort(head1, head2);
+    }
+    static Node mergeSort(Node h1,Node h2)
+    {
+        Node dummy=new Node(-1);
+        Node res=dummy;
+        while(h1!=null&&h2!=null)
+        {
+            if(h1.data<=h2.data)
+            {
+                dummy.next=h1;
+                h1.prev=dummy;
+                
+                h1=h1.next;
+            }
+            else
+            {
+               dummy.next=h2;
+                h2.prev=dummy;
+                
+                h2=h2.next; 
+            }
+            dummy=dummy.next;
+        }
+        while(h1!=null)
+        {
+               dummy.next=h1;
+                h1.prev=dummy;
+                dummy=dummy.next;
+                h1=h1.next;
+        }
+        while(h2!=null)
+        {
+               dummy.next=h2;
+                h2.prev=dummy;
+                dummy=dummy.next;
+                h2=h2.next;
+        }
+       
+       
+       
+      Node re=res.next;
+      re.prev=null;
+        return re;
+    }
 
    //Function to sort the given doubly linked list using Merge Sort.
-      static Node getMid(Node root){
-       if(root == null) return null;
-       Node fast = root.next, slow = root;
-       while(fast != null && fast.next != null){
-           slow =  slow.next;
-           fast = fast.next.next;
-       }
-       return slow;
-   }
-   
-   static Node sort(Node left, Node right){
-       Node Result = null, dummy = null, pre = null;
-       while(left != null && right != null){
-           if(left.data < right.data){
-               if(Result == null){
-                   Result = left;
-                   dummy = Result;
-               } else {
-                   dummy.next = left;
-                   left.prev= dummy;
-                   dummy = dummy.next;
-               }
-               
-               
-               left = left.next;
-           } else {
-               if(Result == null){
-                   Result = right;
-                   dummy = Result;
-               } else {
-                   dummy.next = right;
-                   right.prev= dummy;
-                   dummy = dummy.next;
-               }
-               
-               right = right.next;
-           }
-       }
-       
-       if(left != null){
-               if(Result == null){
-                   Result = left;
-                   dummy = Result;
-               } else {
-                   dummy.next = left;
-                   left.prev= dummy;
-                   dummy = dummy.next;
-               }
-               
-               
-               left = left.next; 
-       } else if(right != null){
-               if(Result == null){
-                   Result = right;
-                   dummy = Result;
-               } else {
-                   dummy.next = right;
-                   right.prev= dummy;
-                   dummy = dummy.next;
-               }
-               right = right.next;
-       }
-       
-       return Result;
-   }
-   
-   static Node merge(Node root){
-           if(root.next == null) return root;
-           Node mid = getMid(root);
-           Node temp = mid.next;
-           mid.next = null;
-           temp.prev = null;
-           Node left = merge(root);
-           Node right = merge(temp);
-           Node result = sort(left, right);
-           return result;
-   }
-   
-   static Node sortDoubly(Node head){
-       return merge(head);
-   }
-
+      
 
    
 }
