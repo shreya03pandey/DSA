@@ -22,7 +22,7 @@ class Solution {
         while(m-->0)
         {
             ListNode temp=rev.next;        
-            rev.next=rev.next.next;
+            rev.next=temp.next;
             temp.next=curr.next;
             curr.next=temp;
         }
