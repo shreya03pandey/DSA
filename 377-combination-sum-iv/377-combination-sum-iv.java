@@ -9,7 +9,7 @@ class Solution {
     {
         if(tar==0)
             return 1;
-        if(idx==n)
+        if(idx==n||tar<0)
             return 0;
           if(dp[idx][tar]!=-1)
               return dp[idx][tar];
