@@ -2,18 +2,22 @@ class Solution {
     public int lengthOfLIS(int[] nums) {
        List<Integer>al=new ArrayList<>();
         al.add(nums[0]);
+        int len=1;
         int n=nums.length;
         for(int i=1;i<n;i++)
         {
           if(nums[i]>al.get(al.size()-1))
+          {
               al.add(nums[i]);
+              len++;
+          }
             else
             {
                 int idx=binarySearch(al,nums[i]);
                 al.set(idx,nums[i]);
             }
         }
-        return al.size();
+        return len;
     }
      
       public int binarySearch(List<Integer>al,int tar)
