@@ -1,23 +1,35 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
+       List<Integer>al=new ArrayList<>();
+        al.add(nums[0]);
         int n=nums.length;
-        int dp[][]=new int[n][n];
-        for(int i=0;i<n;i++)
-            Arrays.fill(dp[i],-1);
-        return findMax(nums,nums.length-1,-1,dp);
+        for(int i=1;i<n;i++)
+        {
+          if(nums[i]>al.get(al.size()-1))
+              al.add(nums[i]);
+            else
+            {
+                int idx=binarySearch(al,nums[i]);
+                al.set(idx,nums[i]);
+            }
+        }
+        return al.size();
     }
-    public int findMax(int[] nums,int idx,int prev,int[][] dp)
-    {
-        if(idx<0)
-            return 0;
-        if(prev!=-1&&dp[idx][prev]!=-1)
-            return dp[idx][prev];
-        int nopick=findMax(nums,idx-1,prev,dp);
-        int pick=0;
-        if(prev==-1 || nums[idx]<nums[prev])
-            pick=1+findMax(nums,idx-1,idx,dp);
-        if(prev!=-1)
-        return dp[idx][prev]=Math.max(pick,nopick);
-        return Math.max(pick,nopick);
-    }
+     
+      public int binarySearch(List<Integer>al,int tar)
+      {
+          int l=0,r=al.size()-1;
+          while(l<=r)
+          {
+              int mid=(l+r)/2;
+              if(al.get(mid)==tar)
+                  return mid;
+              if(al.get(mid)<tar)
+                  l=mid+1;
+              else
+                  r=mid-1;
+          }
+          return r+1;
+      }
+   
 }
