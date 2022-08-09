@@ -8,10 +8,8 @@ class Solution {
         {
             char ch=s.charAt(i);
             if(!st.isEmpty()&&Math.abs(ch-st.peek())==32)
-            {
                 st.pop();
-                continue;
-            }
+            else
             st.push(ch);
             
         }
