@@ -23,8 +23,7 @@ class Solution {
             return true;
         if( Long.valueOf(root.val)<=l || Long.valueOf(root.val)>=r)
             return false;
-        Boolean left=valid(root.left,l,Long.valueOf(root.val));
-        Boolean right=valid(root.right,Long.valueOf(root.val),r);
-        return left&&right;
+       
+        return     valid(root.left,l,Long.valueOf(root.val))&&valid(root.right,Long.valueOf(root.val),r);
     }
 }
