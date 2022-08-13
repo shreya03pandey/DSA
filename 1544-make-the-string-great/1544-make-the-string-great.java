@@ -3,8 +3,8 @@ class Solution {
         StringBuilder sb=new StringBuilder();
         int n=s.length();
         Stack<Character>st=new Stack<>();
-        st.push(s.charAt(n-1));
-        for(int i=n-2;i>=0;i--)
+        st.push(s.charAt(0));
+        for(int i=1;i<n;i++)
         {
             char ch=s.charAt(i);
             if(!st.isEmpty()&&Math.abs(ch-st.peek())==32)
@@ -15,6 +15,6 @@ class Solution {
         }
         while(!st.isEmpty())
             sb.append(st.pop());
-        return sb.toString();
+        return sb.reverse().toString();
     }
 }
