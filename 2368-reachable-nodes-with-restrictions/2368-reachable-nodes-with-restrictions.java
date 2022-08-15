@@ -1,5 +1,4 @@
 class Solution {
-    int cnt=0;
     public int reachableNodes(int n, int[][] edges, int[] restricted) {
        ArrayList<ArrayList<Integer>> am = new ArrayList<ArrayList<Integer>>();
         for(int i=0;i<n;i++)
@@ -11,22 +10,33 @@ class Solution {
             am.get(x[0]).add(x[1]);
             am.get(x[1]).add(x[0]);
         }
-        boolean vis[]=new boolean[n];
+        
+         boolean vis[]=new boolean[n];
         for(int i:restricted)
             vis[i]=true;
-         dfs(am,vis,0);
-        return cnt;
+        Queue<Integer>q=new LinkedList<>();
+       
+        q.add(0);
+        vis[0]=true;
+        int ans=0;
+        while(!q.isEmpty())
+        {
+            int s=q.size();
+            while(s-->0){
+            int curr=q.poll();
+             ans++;
+            for(int x:am.get(curr))
+            {
+                if(vis[x]==false)
+                {
+                    vis[x]=true;
+                    q.add(x);
+                   
+                }
+            }
+            }
+        }
+        return ans;
        
     }
-    public void dfs( ArrayList<ArrayList<Integer>> am,boolean vis[],int idx)
-    {
-        vis[idx]=true;
-         cnt++;
-        for(int x:am.get(idx))
-        {
-            if( vis[x]==false)
-                dfs(am,vis,x);
-        }
-      
-}
 }
