@@ -17,19 +17,20 @@ class Solution {
         Queue<Integer>q=new LinkedList<>();
        
         q.add(0);
-        vis[0]=true;
+        
         int ans=0;
         while(!q.isEmpty())
         {
             int s=q.size();
             while(s-->0){
             int curr=q.poll();
+                vis[curr]=true;
              ans++;
             for(int x:am.get(curr))
             {
                 if(vis[x]==false)
                 {
-                    vis[x]=true;
+                    
                     q.add(x);
                    
                 }
