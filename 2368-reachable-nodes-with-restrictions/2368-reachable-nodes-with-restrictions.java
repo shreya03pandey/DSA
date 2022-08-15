@@ -1,4 +1,5 @@
 class Solution {
+    int cnt=0;
     public int reachableNodes(int n, int[][] edges, int[] restricted) {
        ArrayList<ArrayList<Integer>> am = new ArrayList<ArrayList<Integer>>();
         for(int i=0;i<n;i++)
@@ -13,18 +14,19 @@ class Solution {
         boolean vis[]=new boolean[n];
         for(int i:restricted)
             vis[i]=true;
-        return dfs(am,vis,0);
+         dfs(am,vis,0);
+        return cnt;
        
     }
-    public int dfs( ArrayList<ArrayList<Integer>> am,boolean vis[],int idx)
+    public void dfs( ArrayList<ArrayList<Integer>> am,boolean vis[],int idx)
     {
         vis[idx]=true;
-        int cnt=1;
+         cnt++;
         for(int x:am.get(idx))
         {
             if( vis[x]==false)
-                cnt+=dfs(am,vis,x);
+                dfs(am,vis,x);
         }
-        return cnt;
-    }
+      
+}
 }
