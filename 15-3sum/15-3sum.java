@@ -20,12 +20,13 @@ class Solution {
                     al.add(nums[l]);
                     al.add(nums[r]);
                     alist.add(al);
-                    l++;
-                    r--;
-                    while(l<n&&nums[l]==nums[l-1])
+                   
+                    while(l<r&&nums[l]==nums[l+1])
                         l++;
-                     while(r>=0&&nums[r]==nums[r+1])
+                     while(l<r&&nums[r]==nums[r-1])
                         r--;
+                     l++;
+                    r--;
                 }
                 else
                     if(sum<tar)
