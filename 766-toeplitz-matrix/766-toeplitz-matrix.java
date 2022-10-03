@@ -8,21 +8,22 @@ class Solution {
             if(diff>0) row=diff;
             if(diff<0) col=-diff;
             int prev=mat[row][col];
-             while(row<m||col<n)
+             while(row<m&&col<n)
             {
+                 if(mat[row][col]!=prev)
+                 return false;
               row++;
               col++;
-               if(row<m&&col<n&&mat[row][col]!=prev)
-                return false;
+               
               }
         }
         return true;
     }
  }     
 // 0 1 2 3
-//     0  1 2 3 4
-//     1  5 1 2 3
-//     2  9 5 1 2
+//     0  1 2 3 4 5
+//     1  5 1 2 3 6
+//     2  9 5 1 2 8  row=2 col=6
 //     diff=row-col
 //    diff range-2,1,0 -1 -2 -3  -(n-1)
 //     m-1 to -(n-1)
