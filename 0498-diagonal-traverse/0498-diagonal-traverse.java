@@ -5,18 +5,18 @@ class Solution {
         boolean up=true;  
         int row=0,col=0,idx=0;
         
-   while(row<rows && col < cols){
-     if(up){
+      while(row<rows && col < cols){
+        if(up){
         while(row>0 && col< cols-1 ){
           res[idx++]=mat[row][col]; 
           row--;
           col++;
           }
           res[idx++]=mat[row][col];
-          if(col==cols-1){
-              row++;
+          if(col<cols-1){
+              col++;
           }else{
-             col++; 
+             row++; 
           }
          
         }
@@ -28,10 +28,10 @@ class Solution {
                col--;
              }
             res[idx++]=mat[row][col];
-            if(row==rows-1){
-              col++;
+            if(row<rows-1){
+              row++;
              }else{
-             row++; 
+             col++; 
            } 
          }  
       up=!up;
