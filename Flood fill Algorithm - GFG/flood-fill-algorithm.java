@@ -55,7 +55,7 @@ class Solution
            int x=sr+dx[i];
            int y=sc+dy[i];
            if(x>=0&&x<image.length&&y>=0&&y<image[0].length&&image[x][y]==iniColor&&image[x][y]!=newColor)
-           floodFill(image,x,y,newColor);
+           dfs(image,x,y,newColor,iniColor);
        }
     }
 }
