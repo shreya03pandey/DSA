@@ -42,8 +42,7 @@ class Solution
         // Code here
         int n=grid.length;
         int m=grid[0].length;
-        int dis[][]=new int[n][m];
-        int vis[][]=new int[n][m];
+       
         Queue<int[]>q=new LinkedList<>();
         for(int i=0;i<n;i++)
         {
@@ -51,8 +50,13 @@ class Solution
             {
                 if(grid[i][j]==1)
                 {
-                    q.add(new int[]{i,j,0});
-                    vis[i][j]=1;
+                    q.add(new int[]{i,j,});
+                    grid[i][j]=0;
+
+                }
+                else
+                {
+                    grid[i][j]=-1;
                 }
             }
         }
@@ -64,20 +68,22 @@ class Solution
            while(s-->0)
            {
                int[] curr=q.poll();
-               dis[curr[0]][curr[1]]=curr[2];
+               
                for(int i=0;i<4;i++)
                {
                    int x=curr[0]+dx[i];
                    int y=curr[1]+dy[i];
-                   if(x>=0&&x<n&&y>=0&&y<m&&vis[x][y]==0&&grid[x][y]==0)
+                   if(x>=0&&x<n&&y>=0&&y<m&&grid[x][y]==-1)
                    {
-                       q.add(new int[]{x,y,curr[2]+1});
-                       vis[x][y]=1;
+                       
+                       grid[x][y]=grid[curr[0]][curr[1]]+1;
+                       q.add(new int[]{x,y});
+                       
                    }
                }
            }
         }
-        return dis;
+        return grid;
         
     }
 }
