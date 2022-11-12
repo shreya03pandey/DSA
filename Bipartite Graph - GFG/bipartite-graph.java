@@ -45,31 +45,26 @@ class Solution
        {
            if(color[i]==-1)
            {
-           if(!bfs(adj,color,i))
+           if(!dfs(adj,color,i,0))
            return false;
            }
        }
        return true;
     }
-    public boolean bfs(ArrayList<ArrayList<Integer>>adj,int color[],int v)
+    public boolean dfs(ArrayList<ArrayList<Integer>>adj,int color[],int v,int c)
     {
-        Queue<Integer>q=new LinkedList<>();
-        q.add(v);
-        color[v]=0;
-        while(!q.isEmpty())
-        {
-          int  u=q.poll();  
-        for(Integer it:adj.get(u))
+        color[v]=c;
+        for(Integer it:adj.get(v))
         {
             if(color[it]==-1)
             {
-                color[it]=1-color[u];
-                q.add(it);
+                if(dfs(adj,color,it,1-c)==false)
+                return false;
             }
             else
-            if(color[u]==color[it])
+            if(color[v]==color[it])
             return false;
-        }
+        
         }
         return true;
     }
