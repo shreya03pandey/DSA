@@ -45,39 +45,38 @@ class Solution {
 
     List<Integer> eventualSafeNodes(int V, List<List<Integer>> adj) {
 
-       int vis[]=new int[V];
-       int pathvis[]=new int[V];
-       int safe[]=new int[V];
-       for(int i=0;i<V;i++)
-       {
-           if(vis[i]==0)
-           dfs(adj,i,vis,pathvis,safe);//we don't need to just check for a cycle but for all 
-                              //the paths
-       }
-       List<Integer>res=new ArrayList<>();
-       for(int i=0;i<V;i++)
-       if(safe[i]==1)
-       res.add(i);
-       return res;
-    }
-    public boolean dfs(List<List<Integer>> adj,int u,int vis[],int pathvis[],int safe[])
-    {
-      vis[u]=1;
-      pathvis[u]=1;
-      for(Integer it:adj.get(u))
+      ArrayList<ArrayList<Integer>>al=new ArrayList<>();
+      for(int i=0;i<V;i++)
+      al.add(new ArrayList<>());
+       int indegree[]=new int[V];
+      for(int i=0;i<V;i++)
       {
-          if(vis[it]==0)
+          for(int j:adj.get(i))
           {
-            if(dfs(adj,it,vis,pathvis,safe))
-            return true;
+              al.get(j).add(i);
+              indegree[i]++;
           }
-          else
-          if(pathvis[it]==1)
-          return true;
       }
-      pathvis[u]=0;
-      safe[u]=1;
-      return false;
+      List<Integer>res=new ArrayList<>();
+      Queue<Integer>q=new LinkedList<>();
+      for(int i=0;i<V;i++)
+      {
+          if(indegree[i]==0)
+          q.add(i);
+      }
+      while(!q.isEmpty())
+      {
+          int curr=q.poll();
+          res.add(curr);
+          for(int it:al.get(curr))
+          {
+              indegree[it]--;
+              if(indegree[it]==0)
+              q.add(it);
+          }
+      }
+      Collections.sort(res);
+      return res;
     }
     
     
