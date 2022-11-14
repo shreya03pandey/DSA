@@ -53,8 +53,7 @@ class Solution
         {
             Pair p=q.poll();
             String w=p.f;
-            if(w.equals(targetWord))
-            return p.s;
+            
             for(int i=0;i<w.length();i++)
             {
                 for(char j='a';j<='z';j++)
@@ -64,6 +63,8 @@ class Solution
                     String st=new String(word);
                     if(h.contains(st))
                     {
+                        if(st.equals(targetWord))
+                            return p.s+1;
                         q.add(new Pair(st,p.s+1));
                         h.remove(st);
                     }
