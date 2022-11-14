@@ -66,13 +66,12 @@ class Solution {
 		while(!st.isEmpty())
 		{
 		    int u=st.pop();
-		    for(int i=0;i<al.get(u).size();i++)
-		    {
-		        int ver=al.get(u).get(i).v;
-		        int wt=al.get(u).get(i).d;
-		        if(dis[u]+wt<dis[ver])
-		        dis[ver]=dis[u]+wt;
-		    }
+		    for(Pair p:al.get(u))
+	           {
+	               int val=p.v;
+	               int wt=p.d;
+	               dis[val]=Math.min(dis[val],dis[u]+wt);
+	           }
 		}
 		for(int i=0;i<dis.length;i++)
 		{
