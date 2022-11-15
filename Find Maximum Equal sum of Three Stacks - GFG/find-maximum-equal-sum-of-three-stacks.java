@@ -71,7 +71,7 @@ class Solution {
         for(int x:S3)
         h3+=x;
         int k1=0,k2=0,k3=0;
-        while(k1!=N1&&k2!=N2&&k3!=N3)
+        while(h1!=0&&h2!=0&&h3!=0)
         {
             if(h1==h2&&h2==h3)
             return h1;
