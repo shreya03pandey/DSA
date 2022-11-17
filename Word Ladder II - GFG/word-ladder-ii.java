@@ -59,52 +59,74 @@ public class GFG
 
 class Solution
 {
+    HashMap<String,Integer>m=new HashMap<>();
+    ArrayList<ArrayList<String>> res=new ArrayList<>();
+    String begin;
    public ArrayList<ArrayList<String>> findSequences(String startWord, String targetWord, String[] wordList)
     {
         // Code here
+        begin=startWord;
         HashSet<String>h=new HashSet<>();
         for(String s:wordList)
         h.add(s);
-        ArrayList<ArrayList<String>> res=new ArrayList<>();
-        Queue<ArrayList<String>>q=new LinkedList<>();
-        ArrayList<String>al=new ArrayList<>();
-        al.add(startWord);
-        q.add(al);
-        int level=0;
-        ArrayList<String>usedOnLevel=new ArrayList<>();
-        usedOnLevel.add(startWord);
+        Queue<String>q=new LinkedList<>();
+        q.add(startWord);
+        h.remove(startWord);
+        m.put(startWord,1);
         while(!q.isEmpty())
         {
-            ArrayList<String>curr=q.poll();
-               if(curr.size()>level)//it means we have come to the next level bcoz on the same level
-                  //curr.size==level
+            String curr=q.poll();
+            if(curr.equals(targetWord))
+            break;
+            for(int i=0;i<curr.length();i++)
+            {
+                for(char j='a';j<='z';j++)
+                {
+                  char ch[]=curr.toCharArray();
+                  ch[i]=j;
+                  String newWord=new String(ch);
+                  if(h.contains(newWord))
                   {
-                     level++;
-                     for(String it:usedOnLevel)
-                     h.remove(it);
-                     usedOnLevel.clear();
+                      q.add(newWord);
+                      m.put(newWord,m.get(curr)+1);
+                      h.remove(newWord);
                   }
-                  String word=curr.get(curr.size()-1);
-                  if(word.equals(targetWord))
-                      res.add(curr);
-                      for(int i=0;i<word.length();i++)
-                      {
-                          for(char j='a';j<='z';j++)
-                          {
-                              char ch[]=word.toCharArray();
-                              ch[i]=j;
-                              String newWord=new String(ch);
-                              if(h.contains(newWord))
-                              {
-                                  curr.add(newWord);
-                                  ArrayList<String>newLevel=new ArrayList<>(curr);
-                                  q.add(newLevel);
-                                  usedOnLevel.add(newWord);
-                                  curr.remove(curr.size()-1);
-                              }
-                          }
-                      }
+                }
+            }
         }
-       return res; 
+        if(m.containsKey(targetWord))
+        {
+            ArrayList<String>seq=new ArrayList<>();
+            seq.add(targetWord);
+            dfs(targetWord,seq);
+        }
+        return res;
+        
+    }
+    public void dfs(String word,ArrayList<String>seq)
+    {
+        if(word.equals(begin))
+        {
+            ArrayList<String>dup=new ArrayList<>(seq);
+            Collections.reverse(dup);
+            res.add(dup);
+            return;
+        }
+        int l=word.length();
+        for(int i=0;i<l;i++)
+        {
+            for(char j='a';j<='z';j++)
+            {
+              char ch[]=word.toCharArray();
+              ch[i]=j;
+              String newWord=new String(ch); 
+              if(m.containsKey(newWord)&&(m.get(newWord)+1==m.get(word)))
+              {
+                seq.add(newWord);
+                dfs(newWord,seq);
+                seq.remove(newWord);
+              }
+            }
+        }
     }
 }
