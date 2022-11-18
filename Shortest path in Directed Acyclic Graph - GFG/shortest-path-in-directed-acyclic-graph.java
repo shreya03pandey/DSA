@@ -46,8 +46,8 @@ class Solution {
 		ArrayList<ArrayList<Pair>>al=new ArrayList<>();
 		for(int i=0;i<N;i++)
 		{
-		 ArrayList<Pair>temp=new ArrayList<Pair>();
-		al.add(temp);
+		 
+		al.add(new ArrayList<Pair>());
 		}
 		for(int i=0;i<M;i++)
 		{
