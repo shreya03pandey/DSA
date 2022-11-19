@@ -1,39 +1,45 @@
 class Solution {
     public int largestRectangleArea(int[] heights) {
         int n=heights.length;
-      int ps[]=new int[n];
-      int ns[]=new int[n];
-        previousSmall(heights,ps);
-        nextSmall(heights,ns);
-        int res=0;
-        for(int i=0;i<n;i++)
-           res=Math.max(res,(ns[i]-ps[i]-1)*heights[i]); 
-        return res;
-    }
-    public void previousSmall(int[] heights,int ps[])
-    {
-        int n=heights.length;
-        Stack<Integer>s=new Stack<>();
+        int ps[]=new int[n];
+        int ns[]=new int[n];
+        findPreviousSmall(heights,ps);
+        findNextSmall(heights,ns);
+        int maxarea=0;
         for(int i=0;i<n;i++)
         {
-            while(!s.isEmpty()&&heights[s.peek()]>=heights[i])
-                s.pop();
-            ps[i]=(s.isEmpty())?-1:s.peek();
-            s.push(i);
+            int l=heights[i];
+            int b=ns[i]-ps[i]-1;
+            maxarea=Math.max(maxarea,l*b);
         }
-       
+        return maxarea;
     }
-    public void nextSmall(int[] heights,int ns[])
+    public void findPreviousSmall(int[] heights,int[] ps)
     {
-        int n=heights.length;
-        Stack<Integer>s=new Stack<>();
-        for(int i=n-1;i>=0;i--)
+        Stack<Integer>st=new Stack<>();//fill indexes in this array
+        for(int i=0;i<heights.length;i++)
         {
-            while(!s.isEmpty()&&heights[s.peek()]>=heights[i])
-                s.pop();
-            ns[i]=(s.isEmpty())?n:s.peek();
-            s.push(i);
+            while(!st.isEmpty() && heights[st.peek()]>=heights[i])
+                st.pop();
+            ps[i]=st.isEmpty()?-1:st.peek();
+            st.push(i);
         }
-         
+    }
+    public void findNextSmall(int[] heights,int[] ns)
+    {
+        Stack<Integer>st=new Stack<>();//fill indexes in this array
+        int n=heights.length;
+        for(int i=heights.length-1;i>=0;i--)
+        {
+            while(!st.isEmpty() && heights[st.peek()]>=heights[i])
+                st.pop();
+            ns[i]=st.isEmpty()?n:st.peek();
+            st.push(i);
+        }
     }
 }
+
+
+            
+    
+    
