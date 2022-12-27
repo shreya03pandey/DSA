@@ -30,46 +30,59 @@ class GFG {
 
 
 //User function Template for Java
-
+class DisjointSet
+{
+    int par[];
+    int size[];
+    DisjointSet(int n)
+    {
+        par=new int[n+1];
+        size=new int[n+1];
+        for(int i=0;i<=n;i++)
+        par[i]=i;
+    }
+    int findPar(int x)
+    {
+        if(par[x]==x)
+        return x;
+        else
+        return par[x]=findPar(par[x]);
+    }
+    void unionBySize(int ux,int vx)
+    {
+        int u=findPar(ux);
+        int v=findPar(vx);
+        if(u==v) return;
+        if(size[u]<size[v])
+        {
+           par[u]=v;
+           size[v]+=size[u];
+        }
+        else
+        {
+            par[v]=u;
+            size[u]+=size[u];
+        }
+    }
+}
 class Solution {
     static int numProvinces(ArrayList<ArrayList<Integer>> adj, int V) {
-        ArrayList<ArrayList<Integer>> adjList=new ArrayList<ArrayList<Integer>>();
+        // code here
+        DisjointSet ds=new DisjointSet(V);
         for(int i=0;i<V;i++)
-        {
-            adjList.add(new ArrayList<Integer>());
-        }
-        for(int i=0;i<adj.size();i++)
         {
             for(int j=0;j<adj.get(i).size();j++)
             {
-                if(adj.get(i).get(j)==1 && i!=j)
-                {
-                adjList.get(i).add(j);
-                adjList.get(j).add(i);
-                }
+                if(adj.get(i).get(j)==1)
+                ds.unionBySize(i,j);
             }
         }
         int cnt=0;
-        int vis[]=new int[V];
         for(int i=0;i<V;i++)
         {
-            if(vis[i]==0)
-            {
-                cnt++;
-                dfs(adjList,i,vis);
-            }
+            if(ds.par[i]==i)
+            cnt++;
         }
         return cnt;
-    }
-    static void dfs(ArrayList<ArrayList<Integer>> adjList,int s,int vis[])
-    {
-        vis[s]=1;
-        for(Integer it:adjList.get(s))
-        {
-          if(vis[it]==0)
-          {
-              dfs(adjList,it,vis);
-          }
-        }
     }
 };
