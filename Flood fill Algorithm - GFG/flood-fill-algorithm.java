@@ -42,20 +42,20 @@ class Solution
     public int[][] floodFill(int[][] image, int sr, int sc, int newColor)
     {
         // Code here 
-       dfs(image,sr,sc,newColor,image[sr][sc]);
-       return image;
+        dfs(image,sr,sc,image[sr][sc],newColor);
+        return image;
     }
-    public void dfs(int[][] image, int sr, int sc, int newColor,int iniColor)
+    public void dfs(int[][] image,int sr,int sc,int iniColor,int newColor)
     {
         image[sr][sc]=newColor;
-       int dx[]={-1,0,0,1};
-       int dy[]={0,-1,1,0};
-       for(int i=0;i<4;i++)
-       {
-           int x=sr+dx[i];
-           int y=sc+dy[i];
-           if(x>=0&&x<image.length&&y>=0&&y<image[0].length&&image[x][y]==iniColor&&image[x][y]!=newColor)
-           dfs(image,x,y,newColor,iniColor);
-       }
+        int[] dy={0,-1,1,0};
+        int[] dx={-1,0,0,1};
+        for(int i=0;i<4;i++)
+        {
+            int x=sr+dx[i];
+            int y=sc+dy[i];
+            if(x>=0&&y>=0&&x<image.length&&y<image[0].length&&image[x][y]==iniColor&&image[x][y]!=newColor)
+            dfs(image,x,y,image[x][y],newColor);
+        }
     }
 }
